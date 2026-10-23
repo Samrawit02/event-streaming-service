@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: user-event-streaming-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:event_stream_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+    open-in-view: false
+
+app:
+  jwt:
+    # 256-bit secret key in base64 / hex format
+    secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+    expiration-ms: 86400000 # 24 hours
+  cache:
+    lru-capacity: 100
+  queue:
+    max-capacity: 500
+
+logging:
+  level:
+    com.challenge.eventstream: INFO
+    org.springframework.security: WARN
